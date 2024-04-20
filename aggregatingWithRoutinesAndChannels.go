@@ -48,6 +48,7 @@ func main() {
 	start := time.Now()
 	waitGroup := &sync.WaitGroup{}
 
+	// channel size is fixed here to 2 , lesser than 
 	respCh := make(chan any, 2)
 
 	
