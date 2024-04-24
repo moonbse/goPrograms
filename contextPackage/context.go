@@ -11,6 +11,7 @@ import (
 
 func main() {
 
+
 }
 
 func fetchThirdPartyAPIWhichCanBeSlow() (int, error) {
