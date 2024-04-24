@@ -30,7 +30,7 @@ func main() {
 
 	collector.OnHTML("a", func(e *colly.HTMLElement) {
 		// printing all URLs associated with the a links in the page
-		fmt.Println("%v", e.Attr("href"))
+		fmt.Printf("%v", e.Attr("href"))
 	})
 
 	collector.OnScraped(func(r *colly.Response) {
