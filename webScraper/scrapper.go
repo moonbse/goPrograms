@@ -13,6 +13,7 @@ import (
 
 func main() {
 
+	fmt.Println("Scraping web...")
 	collector := colly.NewCollector()
 	collector.Visit("https://gohugo.io/content-management/toc/")
 
