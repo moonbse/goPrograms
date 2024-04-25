@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gocolly/colly"
 )
@@ -14,28 +15,38 @@ import (
 func main() {
 
 	fmt.Println("Scraping web...")
-	collector := colly.NewCollector()
-	collector.Visit("https://gohugo.io/content-management/toc/")
+	c := colly.NewCollector(
+		colly.AllowedDomains("https://en.wikipedia.org/wiki/Civil_War_(film)"),
+	)
 
-	collector.OnRequest(func(request *colly.Request) {
+	err := c.Visit("https://en.wikipedia.org/wiki/Civil_War_(film)")
+
+	if err != nil {
+		log.Printf("failed to visit url: %v\n", err)
+		return
+	}
+
+	c.OnRequest(func(request *colly.Request) {
 		fmt.Println("Visiting: ", request.URL)
 	})
 
-	collector.OnError(func(_ *colly.Response, err error) {
+	c.OnError(func(_ *colly.Response, err error) {
 		fmt.Println("Something went wrong: ", err)
 	})
 
-	collector.OnResponse(func(r *colly.Response) {
+	c.OnResponse(func(r *colly.Response) {
 		fmt.Println("Visiting: ", r.Request.URL)
 	})
 
-	collector.OnHTML("a", func(e *colly.HTMLElement) {
+	c.OnHTML("a", func(e *colly.HTMLElement) {
 		// printing all URLs associated with the a links in the page
 		fmt.Printf("%v", e.Attr("href"))
 	})
 
-	collector.OnScraped(func(r *colly.Response) {
+	c.OnScraped(func(r *colly.Response) {
 		fmt.Println(r.Request.URL, " scraped!")
 	})
+
+	c.Wait()
 
 }
