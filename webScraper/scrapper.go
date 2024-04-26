@@ -33,6 +33,7 @@ func main() {
 	c.OnError(func(_ *colly.Response, err error) {
 		fmt.Println("Something went wrong: ", err)
 	})
+	
 
 	c.OnResponse(func(r *colly.Response) {
 		fmt.Println("Visiting: ", r.Request.URL)
