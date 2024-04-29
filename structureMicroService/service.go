@@ -1,4 +1,4 @@
-package structuremicroservice
+package main
 
 import (
 	"context"
