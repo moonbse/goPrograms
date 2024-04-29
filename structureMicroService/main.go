@@ -19,4 +19,7 @@ func main() {
 
 	fmt.Printf("%+v\n", fact)
 
+	apiServer := newApiServer(svc)
+	log.Fatal(apiServer.Start(":3001"))
+
 }
