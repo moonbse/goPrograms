@@ -19,8 +19,8 @@ func newLoggingService(next Service) Service {
 	}
 }
 
-func (s *LoggingService) getCatFact(ctx context.Context) (fact *CatFact, err error){
-    defer func(start time.Time){
+func (s *LoggingService) getCatFact(ctx context.Context) (fact *CatFact, err error) {
+	defer func(start time.Time) {
 		fmt.Printf("fact=%s err=%v took=%v\n", fact.Fact, err, time.Since(start))
 	}(time.Now())
 

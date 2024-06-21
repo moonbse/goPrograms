@@ -16,7 +16,7 @@ func newApiServer(svc Service) *ApiServer {
 	}
 }
 
-func (s *ApiServer) Start(listenAddr string) error{
+func (s *ApiServer) Start(listenAddr string) error {
 	http.HandleFunc("/", s.handleGetFact)
 	return http.ListenAndServe(listenAddr, nil)
 }
@@ -24,8 +24,8 @@ func (s *ApiServer) Start(listenAddr string) error{
 func (s *ApiServer) handleGetFact(w http.ResponseWriter, r *http.Request) {
 	fact, err := s.svc.getCatFact(context.Background())
 	if err != nil {
-        writeJson(w, http.StatusUnprocessableEntity, map[string]any{"error": err.Error()})
-		return 
+		writeJson(w, http.StatusUnprocessableEntity, map[string]any{"error": err.Error()})
+		return
 	}
 
 	writeJson(w, http.StatusOK, fact)
